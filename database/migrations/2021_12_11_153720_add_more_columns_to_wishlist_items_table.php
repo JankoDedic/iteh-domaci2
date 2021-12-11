@@ -27,7 +27,9 @@ class AddMoreColumnsToWishlistItemsTable extends Migration
     public function down()
     {
         Schema::table('wishlist_items', function (Blueprint $table) {
+            $table->dropForeign('wishlist_items_product_id_foreign');
             $table->dropColumn('product_id');
+            $table->dropForeign('wishlist_items_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }
