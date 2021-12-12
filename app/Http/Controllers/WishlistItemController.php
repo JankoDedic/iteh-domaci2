@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\WishlistItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WishlistItemController extends Controller
 {
@@ -17,7 +19,7 @@ class WishlistItemController extends Controller
             return response()->json($validator->errors());
         }
 
-        if (is_null(Product::find($request))) {
+        if (is_null(Product::find($request['product_id']))) {
             return response()->json(['message' => 'Product not found']);
         }
 
@@ -39,7 +41,7 @@ class WishlistItemController extends Controller
             return response()->json($validator->errors());
         }
 
-        if (is_null(Product::find($request))) {
+        if (is_null(Product::find($request['product_id']))) {
             return response()->json(['message' => 'Product not found']);
         }
 
