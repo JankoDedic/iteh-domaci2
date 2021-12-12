@@ -9,6 +9,18 @@ class WishlistItemController extends Controller
 {
     public function add(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        if (is_null(Product::find($request))) {
+            return response()->json(['message' => 'Product not found']);
+        }
+
         WishlistItem::create([
             'user_id' => auth()->user()->id,
             'product_id' => $request['product_id'],
@@ -19,6 +31,18 @@ class WishlistItemController extends Controller
 
     public function remove(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        if (is_null(Product::find($request))) {
+            return response()->json(['message' => 'Product not found']);
+        }
+
         WishlistItem::where('user_id', auth()->user()->id)
             ->where('product_id', $request['product_id'])
             ->delete();
