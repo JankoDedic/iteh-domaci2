@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -43,6 +44,8 @@ class ProductFactory extends Factory
             ])->random(),
 
             'price' => rand(300, 1200),
+
+            'user_id' => User::all()->random(),
         ];
     }
 }
